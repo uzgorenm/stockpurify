@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Build a deterministic contribution record for a future investment-earnings purification calculation."
+    />
+    <title>StockPurify | Research preview</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="./src/app.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="wordmark" href="./" aria-label="StockPurify home">
+        <span class="wordmark-mark" aria-hidden="true">SP</span>
+        <span>StockPurify</span>
+      </a>
+      <span class="preview-badge">Research preview</span>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Deterministic by design</p>
+          <h1 id="page-title">Start with a record you can reproduce.</h1>
+          <p class="hero-lede">
+            Enter an initial investment and, if needed, a recurring plan. StockPurify
+            will normalize the dates and create an exact audit record. Your entries stay
+            in this browser.
+          </p>
+          <div class="guardrail" role="note">
+            <span class="guardrail-icon" aria-hidden="true">i</span>
+            <p>
+              No purification methodology is enabled. This preview does not calculate
+              a charitable amount, accept payments, issue a religious ruling, or claim
+              scholarly approval.
+            </p>
+          </div>
+        </div>
+
+        <aside class="methodology-card" aria-labelledby="gate-title">
+          <p class="card-kicker">Release gate</p>
+          <h2 id="gate-title">Calculation locked</h2>
+          <p>
+            A methodology can become available only after its source, data, rights,
+            implementation, and qualified review are documented.
+          </p>
+          <ul class="gate-list" aria-label="Methodology release requirements">
+            <li><span aria-hidden="true">○</span> Versioned authoritative source</li>
+            <li><span aria-hidden="true">○</span> Data and display rights</li>
+            <li><span aria-hidden="true">○</span> Checksum-verified history</li>
+            <li><span aria-hidden="true">○</span> Qualified Islamic-finance review</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="workspace" aria-label="Contribution record builder">
+        <form id="record-form" class="form-card" novalidate>
+          <div class="section-heading">
+            <div>
+              <p class="step-label">Step 1</p>
+              <h2>Build your contribution record</h2>
+            </div>
+            <span class="local-only">Local only</span>
+          </div>
+
+          <fieldset>
+            <legend>Initial investment</legend>
+            <div class="field-grid two-column">
+              <label>
+                <span>Date</span>
+                <input id="initial-date" name="initialDate" type="date" required />
+              </label>
+              <label>
+                <span>Amount (USD)</span>
+                <div class="money-input">
+                  <span aria-hidden="true">$</span>
+                  <input
+                    id="initial-amount"
+                    name="initialAmount"
+                    type="text"
+                    inputmode="decimal"
+                    autocomplete="off"
+                    placeholder="10,000.00"
+                    required
+                  />
+                </div>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <div class="legend-row">
+              <legend>Recurring contributions</legend>
+              <label class="toggle-label">
+                <input id="recurring-enabled" type="checkbox" />
+                <span>Include a plan</span>
+              </label>
+            </div>
+            <div id="recurring-fields" class="recurring-fields" hidden>
+              <div class="field-grid three-column">
+                <label>
+                  <span>Frequency</span>
+                  <select id="recurring-frequency" name="recurringFrequency">
+                    <option value="month">Monthly</option>
+                    <option value="quarter">Quarterly</option>
+                    <option value="year">Yearly</option>
+                    <option value="week">Weekly</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Start date</span>
+                  <input id="recurring-start" name="recurringStart" type="date" />
+                </label>
+                <label>
+                  <span>End date</span>
+                  <input id="recurring-end" name="recurringEnd" type="date" />
+                </label>
+              </div>
+              <label class="amount-field">
+                <span>Amount each time (USD)</span>
+                <div class="money-input">
+                  <span aria-hidden="true">$</span>
+                  <input
+                    id="recurring-amount"
+                    name="recurringAmount"
+                    type="text"
+                    inputmode="decimal"
+                    autocomplete="off"
+                    placeholder="250.00"
+                  />
+                </div>
+              </label>
+              <p class="field-help">
+                Month-based plans keep the original day. Shorter months use their last valid day.
+              </p>
+            </div>
+          </fieldset>
+
+          <div id="form-error" class="form-error" role="alert" hidden></div>
+          <button class="primary-button" type="submit">Build audit record</button>
+        </form>
+
+        <section id="result-card" class="result-card empty-result" aria-live="polite">
+          <div id="empty-state">
+            <span class="empty-icon" aria-hidden="true">≡</span>
+            <h2>Your audit record will appear here</h2>
+            <p>It will include normalized dates, exact minor-unit amounts, and a reproducibility fingerprint.</p>
+          </div>
+
+          <div id="record-result" hidden>
+            <div class="section-heading result-heading">
+              <div>
+                <p class="step-label">Step 2</p>
+                <h2>Contribution audit record</h2>
+              </div>
+              <span class="verified-badge">Deterministic</span>
+            </div>
+
+            <div class="record-summary">
+              <div>
+                <span>Events</span>
+                <strong id="event-count">0</strong>
+              </div>
+              <div>
+                <span>Total recorded</span>
+                <strong id="total-recorded">$0.00</strong>
+              </div>
+              <div>
+                <span>Charitable amount</span>
+                <strong class="locked-value">Unavailable</strong>
+              </div>
+            </div>
+
+            <p id="record-explanation" class="record-explanation"></p>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Type</th>
+                    <th scope="col" class="numeric">Amount</th>
+                  </tr>
+                </thead>
+                <tbody id="record-rows"></tbody>
+              </table>
+            </div>
+
+            <div class="fingerprint-block">
+              <span>SHA-256 fingerprint</span>
+              <code id="record-fingerprint"></code>
+            </div>
+
+            <div class="result-actions">
+              <button id="copy-json" class="secondary-button" type="button">Copy canonical audit JSON</button>
+              <span id="copy-status" role="status"></span>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="principles" aria-labelledby="principles-title">
+        <p class="eyebrow">What this preview checks</p>
+        <h2 id="principles-title">A calculation needs a reliable record first.</h2>
+        <div class="principle-grid">
+          <article>
+            <span>01</span>
+            <h3>Exact arithmetic</h3>
+            <p>Money is stored in integer minor units. Floating-point math never touches an amount.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Stable schedules</h3>
+            <p>Recurring dates follow explicit UTC calendar rules for leap years and month ends.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Reproducible output</h3>
+            <p>The same input produces the same canonical JSON and SHA-256 fingerprint.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Locked methodology</h3>
+            <p>Production calculations remain off until evidence, rights, data, code, and review are complete.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>StockPurify research preview. No payments or charitable funds are accepted.</p>
+      <p>Calculation status: <strong>locked pending qualified review</strong></p>
+    </footer>
+  </body>
+</html>

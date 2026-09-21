@@ -1,0 +1,42 @@
+[
+  {
+    "name": "single initial contribution",
+    "input": {
+      "initialDate": "2025-06-01",
+      "initialAmount": "1.23",
+      "recurring": null
+    },
+    "expectedDates": ["2025-06-01"],
+    "expectedTypes": ["initial"],
+    "expectedEventCount": 1,
+    "expectedTotalMinor": "123",
+    "expectedExplanation": "This record contains 1 event totaling $1.23. No recurring schedule was included. No methodology was applied, so no charitable amount was calculated.",
+    "expectedFingerprint": "5bba439ed328db5d76a2735c7ad60d2573171a209bc19495e0b6740dc88b29c0"
+  },
+  {
+    "name": "monthly contributions anchored to leap-year month end",
+    "input": {
+      "initialDate": "2024-01-31",
+      "initialAmount": "10,000.00",
+      "recurring": {
+        "amount": "250.25",
+        "start": "2024-01-31",
+        "end": "2024-05-31",
+        "frequency": "month"
+      }
+    },
+    "expectedDates": [
+      "2024-01-31",
+      "2024-01-31",
+      "2024-02-29",
+      "2024-03-31",
+      "2024-04-30",
+      "2024-05-31"
+    ],
+    "expectedTypes": ["initial", "recurring", "recurring", "recurring", "recurring", "recurring"],
+    "expectedEventCount": 6,
+    "expectedTotalMinor": "1125125",
+    "expectedExplanation": "This record contains 6 events totaling $11,251.25. Monthly dates keep the original calendar anchor and use the last valid day in shorter months. No methodology was applied, so no charitable amount was calculated.",
+    "expectedFingerprint": "9dd874a7b8e629965d9c5b12baa0fc03128e5f73c2755336db8eef949c987d76"
+  }
+]

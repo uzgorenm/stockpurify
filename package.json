@@ -1,0 +1,16 @@
+{
+  "name": "stockpurify",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "node scripts/check-source.mjs",
+    "test": "node --test",
+    "verify:data": "node scripts/verify-historical-data.mjs",
+    "qa": "npm run check && npm test && npm run verify:data",
+    "serve": "node scripts/serve.mjs"
+  }
+}
