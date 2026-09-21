@@ -22,7 +22,7 @@ npm run serve
 
 Open `http://localhost:4173`.
 
-The app has no runtime dependencies. All contribution-record calculations run as deterministic JavaScript in the browser, and AI is not part of the calculation path.
+The app has no runtime dependencies and makes no network requests. All contribution-record calculations run as deterministic JavaScript in the browser. AI is not part of the calculation path.
 
 ## Repository map
 
